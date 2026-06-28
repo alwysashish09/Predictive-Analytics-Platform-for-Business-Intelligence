@@ -1,6 +1,6 @@
-# Predictive-Analytics-Platform-for-Business-Intelligence
+# 📊 Predictive Analytics Platform for Business Intelligence
+
 An end-to-end predictive analytics platform that transforms raw business data into actionable insights using machine learning, statistical analysis, and AI-powered reporting.
-# 📊 Predictive Analytics Platform for Business Intelligent
 
 ---
 
@@ -13,9 +13,9 @@ An end-to-end predictive analytics platform that transforms raw business data in
 - Transformation logs visible in real time
 
 ### 🤖 Machine Learning Pipeline
-- Ensemble models: **Random Forest + XGBoost**
+- Ensemble models: Random Forest + XGBoost
 - Auto feature engineering: polynomial features, interaction terms, domain transformations
-- **5-fold cross-validation** with hyperparameter tuning (GridSearchCV)
+- 5-fold cross-validation with hyperparameter tuning (GridSearchCV)
 - Model performance dashboard: accuracy, RMSE, R², confusion matrix
 
 ### 📈 Predictive Dashboard
@@ -45,10 +45,10 @@ An end-to-end predictive analytics platform that transforms raw business data in
 ## 🛠️ Tech Stack
 
 | Layer | Technology |
-|---|---|
-| Frontend | React 18, Tailwind CSS, Recharts |
+|-------|-----------|
+| Frontend | React 18, Tailwind CSS v3, Recharts |
 | Backend | FastAPI (Python 3.11) |
-| ML / Data | Pandas, Scikit-learn, XGBoost, NumPy |
+| ML / Data | Pandas, Scikit-learn, XGBoost, NumPy, SciPy |
 | Database | Supabase (PostgreSQL) |
 | Auth | Supabase Auth |
 | AI | Google Gemini API |
@@ -65,7 +65,9 @@ predictive-analytics-platform/
 │   │   ├── components/       # Reusable UI components
 │   │   ├── pages/            # Dashboard, Upload, Reports
 │   │   ├── hooks/            # Custom React hooks
-│   │   └── utils/            # API helpers
+│   │   ├── context/          # Auth, Theme providers
+│   │   ├── layouts/          # MainLayout, AuthLayout
+│   │   └── utils/            # API helpers, constants
 │   └── package.json
 │
 ├── backend/
@@ -73,18 +75,16 @@ predictive-analytics-platform/
 │   │   ├── api/              # FastAPI route handlers
 │   │   ├── ml/               # ML pipeline modules
 │   │   ├── etl/              # Data ingestion & cleaning
+│   │   ├── schemas/          # Pydantic models
+│   │   ├── middleware/       # Auth middleware
 │   │   └── utils/            # Helpers & validators
 │   ├── models/               # Saved model files (.pkl)
+│   ├── data/
+│   │   └── samples/          # Sample datasets for demo
 │   └── requirements.txt
 │
-├── data/
-│   ├── samples/              # Sample datasets for demo
-│   └── scripts/              # ETL utility scripts
-│
-├── notebooks/
-│   └── EDA.ipynb             # Exploratory Data Analysis
-│
 ├── .env.example
+├── .gitignore
 └── README.md
 ```
 
@@ -93,10 +93,10 @@ predictive-analytics-platform/
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 18+
-- Python 3.11+
-- Supabase account (free)
-- Google AI Studio API key (free)
+- **Node.js** 18+
+- **Python** 3.11+
+- **Supabase** account ([free](https://supabase.com))
+- **Google AI Studio** API key ([free](https://aistudio.google.com))
 
 ### 1. Clone the repository
 ```bash
@@ -110,7 +110,7 @@ cd backend
 python -m venv venv
 source venv/bin/activate        # Windows: venv\Scripts\activate
 pip install -r requirements.txt
-cp ../.env.example .env         # Add your keys
+cp .env.example .env            # Add your keys
 uvicorn app.main:app --reload
 ```
 
@@ -118,7 +118,7 @@ uvicorn app.main:app --reload
 ```bash
 cd frontend
 npm install
-cp ../.env.example .env.local   # Add your keys
+cp .env.example .env.local      # Add your keys
 npm run dev
 ```
 
@@ -127,6 +127,7 @@ npm run dev
 # Supabase
 SUPABASE_URL=your_supabase_url
 SUPABASE_ANON_KEY=your_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 
 # Google Gemini
 GEMINI_API_KEY=your_gemini_key
@@ -137,12 +138,12 @@ BACKEND_URL=http://localhost:8000
 
 ---
 
-## 📊 Results
+## 📊 Performance
 
-- **35% improvement** in forecast accuracy over baseline models
-- Processes datasets up to 500k rows in under 30 seconds
-- Supports regression and classification problem types
-- Executive reports generated in under 10 seconds via Gemini API
+- **35%** improvement in forecast accuracy over baseline models
+- Processes datasets up to **500k rows** in under 30 seconds
+- Supports **regression and classification** problem types
+- Executive reports generated in under **10 seconds** via Gemini API
 
 ---
 
@@ -165,11 +166,3 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 ## 📄 License
 
 [MIT](LICENSE)
-
----
-
-## 👤 Author
-
-**Your Name**
-- GitHub: [@your-username](https://github.com/your-username)
-- LinkedIn: [your-linkedin](https://linkedin.com/in/your-profile)
