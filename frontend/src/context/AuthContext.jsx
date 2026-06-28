@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { supabase } from '../utils/supabase';
 
 const AuthContext = createContext();
 
@@ -8,22 +9,65 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Will be connected to Supabase in Phase 03
-    setLoading(false);
+    if (!supabase) {
+      setLoading(false);
+      return;
+    }
+
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session: currentSession } }) => {
+      setSession(currentSession);
+      setUser(currentSession?.user ?? null);
+      setLoading(false);
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (_event, currentSession) => {
+        setSession(currentSession);
+        setUser(currentSession?.user ?? null);
+      }
+    );
+
+    return () => subscription.unsubscribe();
   }, []);
 
   const signIn = async (email, password) => {
-    // Placeholder — implemented in Phase 03
-    console.log('signIn called', email);
+    if (!supabase) throw new Error('Auth service not configured');
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    if (error) throw error;
+
+    // Store access token for API calls
+    if (data.session) {
+      localStorage.setItem('access_token', data.session.access_token);
+    }
+    return data;
   };
 
   const signUp = async (email, password, fullName) => {
-    // Placeholder — implemented in Phase 03
-    console.log('signUp called', email, fullName);
+    if (!supabase) throw new Error('Auth service not configured');
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { full_name: fullName },
+      },
+    });
+    if (error) throw error;
+
+    if (data.session) {
+      localStorage.setItem('access_token', data.session.access_token);
+    }
+    return data;
   };
 
   const signOut = async () => {
-    // Placeholder — implemented in Phase 03
+    if (!supabase) return;
+    await supabase.auth.signOut();
+    localStorage.removeItem('access_token');
     setUser(null);
     setSession(null);
   };

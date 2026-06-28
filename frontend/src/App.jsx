@@ -1,6 +1,9 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 
 // Placeholder pages — will be built in later phases
 function PlaceholderPage({ title }) {
@@ -23,16 +26,37 @@ function App() {
       <AuthProvider>
         <Router>
           <Routes>
-            <Route path="/login" element={<PlaceholderPage title="Login" />} />
-            <Route path="/signup" element={<PlaceholderPage title="Sign Up" />} />
-            <Route path="/dashboard" element={<PlaceholderPage title="Dashboard" />} />
-            <Route path="/upload" element={<PlaceholderPage title="Upload Data" />} />
-            <Route path="/datasets" element={<PlaceholderPage title="Datasets" />} />
-            <Route path="/datasets/:id" element={<PlaceholderPage title="Dataset Detail" />} />
-            <Route path="/ml/:datasetId" element={<PlaceholderPage title="ML Pipeline" />} />
-            <Route path="/chat/:datasetId" element={<PlaceholderPage title="Ask Your Data" />} />
-            <Route path="/reports" element={<PlaceholderPage title="Reports" />} />
-            <Route path="/settings" element={<PlaceholderPage title="Settings" />} />
+            {/* Public routes */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+
+            {/* Protected routes */}
+            <Route path="/dashboard" element={
+              <ProtectedRoute><PlaceholderPage title="Dashboard" /></ProtectedRoute>
+            } />
+            <Route path="/upload" element={
+              <ProtectedRoute><PlaceholderPage title="Upload Data" /></ProtectedRoute>
+            } />
+            <Route path="/datasets" element={
+              <ProtectedRoute><PlaceholderPage title="Datasets" /></ProtectedRoute>
+            } />
+            <Route path="/datasets/:id" element={
+              <ProtectedRoute><PlaceholderPage title="Dataset Detail" /></ProtectedRoute>
+            } />
+            <Route path="/ml/:datasetId" element={
+              <ProtectedRoute><PlaceholderPage title="ML Pipeline" /></ProtectedRoute>
+            } />
+            <Route path="/chat/:datasetId" element={
+              <ProtectedRoute><PlaceholderPage title="Ask Your Data" /></ProtectedRoute>
+            } />
+            <Route path="/reports" element={
+              <ProtectedRoute><PlaceholderPage title="Reports" /></ProtectedRoute>
+            } />
+            <Route path="/settings" element={
+              <ProtectedRoute><PlaceholderPage title="Settings" /></ProtectedRoute>
+            } />
+
+            {/* Default redirect */}
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
           </Routes>
         </Router>
