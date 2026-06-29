@@ -4,6 +4,9 @@ import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import UploadPage from './pages/Upload';
+import DatasetsList from './pages/DatasetsList';
+import DatasetDetail from './pages/DatasetDetail';
 
 // Placeholder pages — will be built in later phases
 function PlaceholderPage({ title }) {
@@ -32,16 +35,16 @@ function App() {
 
             {/* Protected routes */}
             <Route path="/dashboard" element={
-              <ProtectedRoute><PlaceholderPage title="Dashboard" /></ProtectedRoute>
+              <ProtectedRoute><DatasetsList /></ProtectedRoute>
             } />
             <Route path="/upload" element={
-              <ProtectedRoute><PlaceholderPage title="Upload Data" /></ProtectedRoute>
+              <ProtectedRoute><UploadPage /></ProtectedRoute>
             } />
             <Route path="/datasets" element={
-              <ProtectedRoute><PlaceholderPage title="Datasets" /></ProtectedRoute>
+              <ProtectedRoute><DatasetsList /></ProtectedRoute>
             } />
             <Route path="/datasets/:id" element={
-              <ProtectedRoute><PlaceholderPage title="Dataset Detail" /></ProtectedRoute>
+              <ProtectedRoute><DatasetDetail /></ProtectedRoute>
             } />
             <Route path="/ml/:datasetId" element={
               <ProtectedRoute><PlaceholderPage title="ML Pipeline" /></ProtectedRoute>

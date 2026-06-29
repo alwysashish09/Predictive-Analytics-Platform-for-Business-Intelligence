@@ -2,15 +2,17 @@
 
 from fastapi import APIRouter
 from app.api.auth import router as auth_router
+from app.api.datasets import router as datasets_router
+from app.api.etl import router as etl_router
 
 api_router = APIRouter()
 
 # Register sub-routers
 api_router.include_router(auth_router)
+api_router.include_router(datasets_router)
+api_router.include_router(etl_router)
 
 # Additional routers will be added in subsequent phases:
-# - datasets_router  → /datasets
-# - etl_router       → /etl
 # - ml_router        → /ml
 # - predictions_router → /predictions
 # - insights_router  → /insights
