@@ -4,6 +4,9 @@ from fastapi import APIRouter
 from app.api.auth import router as auth_router
 from app.api.datasets import router as datasets_router
 from app.api.etl import router as etl_router
+from app.api.ml import router as ml_router
+from app.api.insights import router as insights_router
+from app.api.reports import router as reports_router
 
 api_router = APIRouter()
 
@@ -11,6 +14,9 @@ api_router = APIRouter()
 api_router.include_router(auth_router)
 api_router.include_router(datasets_router)
 api_router.include_router(etl_router)
+api_router.include_router(ml_router)
+api_router.include_router(insights_router)
+api_router.include_router(reports_router)
 
 # Additional routers will be added in subsequent phases:
 # - ml_router        → /ml

@@ -7,6 +7,8 @@ import Signup from './pages/Signup';
 import UploadPage from './pages/Upload';
 import DatasetsList from './pages/DatasetsList';
 import DatasetDetail from './pages/DatasetDetail';
+import MLPipeline from './pages/MLPipeline';
+import ChatInterface from './pages/ChatInterface';
 
 // Placeholder pages — will be built in later phases
 function PlaceholderPage({ title }) {
@@ -47,10 +49,10 @@ function App() {
               <ProtectedRoute><DatasetDetail /></ProtectedRoute>
             } />
             <Route path="/ml/:datasetId" element={
-              <ProtectedRoute><PlaceholderPage title="ML Pipeline" /></ProtectedRoute>
+              <ProtectedRoute><MLPipeline /></ProtectedRoute>
             } />
             <Route path="/chat/:datasetId" element={
-              <ProtectedRoute><PlaceholderPage title="Ask Your Data" /></ProtectedRoute>
+              <ProtectedRoute><ChatInterface /></ProtectedRoute>
             } />
             <Route path="/reports" element={
               <ProtectedRoute><PlaceholderPage title="Reports" /></ProtectedRoute>
